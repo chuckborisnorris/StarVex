@@ -40,8 +40,8 @@ The modified code written to the frame buffer on the ROM starts with a hex code,
 If you start the application, with the ROM running, and see a blank screen then it's most likely that the start of the buffer is in a different place in memory to what the C++ application is expecting.
 The easiest way I've found to debug this (on Linux anyway) is to use [GameConqueror](https://linuxhint.com/use-gameconqueror-cheat-engine-linux/). 
 * Pause the ROM on the intro screen, once some objects start showing, and open GameConqueror. 
-* Search the Retroarch process for the bytearray '00 ef be' and you should see the start of the frame data somewhere around 0x220000 bytes from the start of the CPU RAM (heap memory). 
-* If you do not see a value starting with 0x22 then browse each heap address and look for the value CD AB FF 3F repeated in the lines below. 
+* Search the Retroarch process for the bytearray '00 EF BE' and you should see the start of the frame data somewhere around 0x220000 bytes from the start of the CPU RAM (heap memory). 
+* If you do not see a value starting with 0x22 then browse each heap address and look for the value 'CD AB FF 3F' repeated in the lines below. 
 * Now change the frameAddr variable in the file main.cpp to add the searched value with the last 4 digits changed to zeros. e.g. If this address is 0x1234567 then change the line 'long frameAddr = heapAddr+0x220000;' in main.cpp to 'long frameAddr = heapAddr+0x1230000;'.
 * That should fix the most common issue.
 
