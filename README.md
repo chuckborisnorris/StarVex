@@ -1,6 +1,6 @@
 # StarVex
 The hack consists of 2 parts: 
-* A hacked ROM (StarVex.sfc) which will create wireframe models for all polygon objects. This will also write vertex/sprite/frame info to a buffer at the beginning of the second SFX RAM bank ($71). Wireframe mode courtesy of Kandowontu and co.
+* A hacked ROM (.sfc) which will create wireframe models for all polygon objects. This will also write vertex/sprite/frame info to a buffer at the beginning of the second SFX RAM bank ($71). Wireframe mode courtesy of Kandowontu and co. Kudos!
 * A C++ application which reads the frame data and plots the appropriate objects using [openGL](https://www.opengl.org). This will also work with a [Helios DAC](https://github.com/Grix/helios_dac) to blit the images, via ILDA, to a laser display.
 
 Currently the game has only been tested with the following setup, don't expect the game to work straight out of the box with a different setup (it certainly wont work on Windows yet!):
