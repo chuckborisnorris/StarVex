@@ -29,9 +29,9 @@ void HeliosScale(int _xs, int _ys, int _zs) {
 }
 
 void SetHeliosColour(int _r, int _g, int _b) {
-	r = _r/2;
-	g = _g/2;
-	b = _b/2;
+	r = _r;
+	g = _g;
+	b = _b;
 	
 	glColor3f(float(_r/255), float(_g/255), float(_b/255));
 }

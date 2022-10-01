@@ -95,9 +95,9 @@ int main(void)
 		
 		SetHeliosColour(0, 255, 0);
 		r, b = 0;
-		glBegin(GL_LINES);
+		glBegin(GL_POINT);
 		for (int i = 1; i < buffer-2; i += 2) {
-			if ( count > total && total > 0 ) { break; }		
+			if ( count > total-6 && total > 0 ) { break; }		
 			else if (frameData[i] == 0xbe && frameData[i-1] == 0xef) { //start
 				i += 2;	
 				total = (frameData[i] << 8) + frameData[i-1];	
@@ -183,7 +183,7 @@ int main(void)
 				glBegin(GL_LINE_STRIP);
 				i += 2;					
 				count += 4;
-				SetHeliosColour(frameData[i],bCol*2,frameData[i-1]);
+				SetHeliosColour(frameData[i],bCol,frameData[i-1]);
 			}
 			else if (frameData[i] == 0xde && frameData[i-1] == 0xad) { // draw
 				HeliosTranslate(0, 0, 0);
@@ -193,37 +193,34 @@ int main(void)
 				int xpos = frameData[i-1];
 				int ypos = frameData[i];	
 				std::vector<int> points{xpos, ypos}; 				
-				if (i != 0x1d6b) {
-				
-				
-				
+
 				if (next_blank && !first) {
 					WriteHeliosBlank(xpos,ypos);
 					next_blank = false;
 				}
 				
 				i += 2;
-				if (i != 0x1d6b) {
-				xpos = frameData[i-1];
-				ypos = frameData[i];
-				points.push_back(xpos);
-				points.push_back(ypos);
-				
-				bool repeat = std::find(allPoints.begin(), allPoints.end(), points) != allPoints.end();
-				if (!repeat) { 
-					WriteHeliosPoint(points[0], points[1]);
-					WriteHeliosPoint(points[2], points[3]);
+				//if (i != 0x1c1b) {
+				if (count != 86 && count != 88) {
+					xpos = frameData[i-1];
+					ypos = frameData[i];
+					points.push_back(xpos);
+					points.push_back(ypos);
 
-					std::vector<int> points_crs{allPoints.back()[2], allPoints.back()[3], points[0], points[1]};
-					std::vector<int> points_crs_bwd{allPoints.back()[2], allPoints.back()[3], points[0], points[1]};
-					std::vector<int> points_bwd{points[2], points[3], points[0], points[1]};
-					allPoints.push_back(points_crs);	
-					allPoints.push_back(points_crs_bwd);
-					allPoints.push_back(points_bwd);
-					allPoints.push_back(points);	
+					bool repeat = std::find(allPoints.begin(), allPoints.end(), points) != allPoints.end();
+					if (!repeat && !first) { 
+						WriteHeliosPoint(points[0], points[1]);
+						WriteHeliosPoint(points[2], points[3]);
 
-				}
-				}
+						std::vector<int> points_crs{allPoints.back()[2], allPoints.back()[3], points[0], points[1]};
+						std::vector<int> points_crs_bwd{allPoints.back()[2], allPoints.back()[3], points[0], points[1]};
+						std::vector<int> points_bwd{points[2], points[3], points[0], points[1]};
+						allPoints.push_back(points_crs);	
+						allPoints.push_back(points_crs_bwd);
+						allPoints.push_back(points_bwd);
+						allPoints.push_back(points);	
+
+					}
 				}
 				count += 6;	
 				first = false;				
