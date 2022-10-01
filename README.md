@@ -6,15 +6,15 @@ The hack consists of 2 parts:
 Currently the game has only been tested with the following setup, don't expect the game to work straight out of the box with a different setup (it certainly wont work on Windows yet!):
 * Ubuntu 20.04 / 22.04
 * Retroarch emulator system (latest build)
-* Snes9x 2010 (1.52) - I will add the codes for the current Snes9x build soon, I promise
+* Snes9x 2010 core (1.52) - I will add the codes for the current Snes9x core and the Snes9x application soon, I promise...
 
 To compile the C++ source you will need the openGL library and I suggest using g++ to compile. You can use this command line to compile if you have g++:
 
-g++ -pthread -o test main.cpp HeliosDac.cpp -lglfw -lGLU -lGL -lXrandr -lXxf86vm -lXi -lXinerama -lX11 -lrt -ldl -std=c++17 -lusb-1.0
+g++ -pthread -o StarVex main.cpp HeliosDac.cpp -lglfw -lGLU -lGL -lXrandr -lXxf86vm -lXi -lXinerama -lX11 -lrt -ldl -std=c++17 -lusb-1.0
 
 ...and if there are no errors then you can use this to run the app (after starting the ROM):
 
-sudo ./test
+sudo ./StarVex
 
 (if there are errors then it is likely you are missing one of the above libraries)
 
